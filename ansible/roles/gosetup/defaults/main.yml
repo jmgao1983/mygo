@@ -1,0 +1,15 @@
+# 安装目录
+INSTALL_PATH: "/usr/local"
+
+# 工作目录
+WORK_PATH: "$HOME/go"
+
+# 版本
+GO_VER: "go1.12.7"
+
+# 下载链接
+#DOWN_URL: "https://dl.google.com/go/{{ GO_VER }}.linux-amd64.tar.gz"
+DOWN_URL: "https://studygolang.com/dl/golang/{{ GO_VER }}.linux-amd64.tar.gz"
+SHA256_CHECKSUM: "66d83bfb5a9ede000e33c6579a91a29e6b101829ad41fffb5c5bb6c900e109d9"
+
+

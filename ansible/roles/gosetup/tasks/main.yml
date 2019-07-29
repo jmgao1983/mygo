@@ -1,0 +1,42 @@
+- name: prepare some dirs
+  file: name={{ item }} state=directory
+  with_items:
+  - "{{ INSTALL_PATH }}"
+  - "{{ WORK_PATH }}"
+  - "~/.vim/autoload/"
+
+- name: download {{ GO_VER }} binary
+  get_url:
+    url: "{{ DOWN_URL }}"
+    dest: "/tmp"
+    checksum: "sha256:{{ SHA256_CHECKSUM }}"
+    timeout: 60
+
+- name: unpack and install go
+  unarchive:
+    src: "/tmp/{{ GO_VER }}.linux-amd64.tar.gz"
+    dest: "{{ INSTALL_PATH }}"
+    remote_src: yes
+
+- name: set sys envrionment
+  blockinfile:
+    path: ~/.bashrc
+    state: present
+    block: |
+      export GOPATH={{ WORK_PATH }}
+      export PATH=$PATH:{{ INSTALL_PATH }}/go/bin:{{ WORK_PATH }}/bin
+
+- name: download junegunn/vim-plug
+  get_url:
+    url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    dest: "~/.vim/autoload/"
+
+- name: set .vimrc
+  template: src=vimrc.j2 dest=$HOME/.vimrc
+
+- debug:
+    msg: "Note1: Restart Vim then Run ':PlugInstall' to install the plugins 'vim-go'"
+
+- debug:
+    msg: "Note2: Run ':GoInstallBinaries' to install the binaries required by 'vim-go'. \
+          You may need to use a VPN connection to download."

@@ -1,0 +1,49 @@
+"使用‘junegunn/vim-plug’安装'fatih/vim-go'
+call plug#begin('~/.vim/plugged')
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+call plug#end()
+
+"设置快捷键
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+
+"设置语法高亮
+syntax enable
+ 
+"设置配色方案
+colorscheme torte
+
+"高亮显示匹配的括号
+set showmatch
+
+"设置缩进
+set tabstop=3
+set softtabstop=3
+set shiftwidth=3
+set autoindent
+set cindent
+
+"设置tab替换为空格
+set expandtab
+
+"打开文件类型自动检测功能
+filetype on
+
+"设置VIM记录的历史数
+set history=50
+ 
+"设置当文件被外部改变的时侯自动读入文件
+if exists("&autoread")
+    set autoread
+endif
+
+"设置静音模式
+set noerrorbells
+set novisualbell
+set t_vb=
+
+"不要使用vi的键盘模式，而是vim自己的
+set nocompatible
